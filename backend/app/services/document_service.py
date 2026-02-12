@@ -92,7 +92,7 @@ async def update_document_status(
     user_id: str, doc_id: str, status: str, chunk_count: int = 0
 ) -> None:
     docs_ref = _get_docs_ref(user_id)
-    update_data = {"status": status}
+    update_data: dict[str, str | int] = {"status": status}
     if chunk_count > 0:
         update_data["chunk_count"] = chunk_count
     docs_ref.document(doc_id).update(update_data)

@@ -10,7 +10,7 @@ async def get_current_user(
 ) -> str:
     try:
         decoded_token = firebase_auth.verify_id_token(credentials.credentials)
-        return decoded_token["uid"]
+        return str(decoded_token["uid"])
     except Exception:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

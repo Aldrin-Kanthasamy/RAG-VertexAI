@@ -11,7 +11,7 @@ def _embed_query(query: str) -> list[float]:
     model = get_embedding_model()
     inputs = [TextEmbeddingInput(text=query, task_type="RETRIEVAL_QUERY")]
     embeddings = model.get_embeddings(inputs)
-    return embeddings[0].values
+    return list(embeddings[0].values)
 
 
 async def retrieve_relevant_chunks(
