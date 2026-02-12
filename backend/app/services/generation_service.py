@@ -23,7 +23,12 @@ Answer based on the context above, citing sources with [Source N]:"""
 async def generate_stream(
     query: str, context: str, chat_history: list[dict] | None = None
 ) -> AsyncGenerator[str, None]:
-    model = get_generation_model()
+    from vertexai.generative_models import GenerativeModel
+
+    model = GenerativeModel(
+        settings.GENERATION_MODEL,
+        system_instruction=SYSTEM_PROMPT,
+    )
 
     prompt = RAG_PROMPT_TEMPLATE.format(context=context, query=query)
 
@@ -42,7 +47,6 @@ async def generate_stream(
     response = model.generate_content(
         contents,
         generation_config=generation_config,
-        system_instruction=SYSTEM_PROMPT,
         stream=True,
     )
 
