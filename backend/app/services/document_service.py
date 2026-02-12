@@ -14,9 +14,7 @@ def _get_docs_ref(user_id: str):
     return db.collection("users").document(user_id).collection("documents")
 
 
-async def upload_document(
-    user_id: str, filename: str, file_bytes: bytes, file_size: int
-) -> dict:
+async def upload_document(user_id: str, filename: str, file_bytes: bytes, file_size: int) -> dict:
     ext = os.path.splitext(filename)[1].lower()
     if ext not in ALLOWED_EXTENSIONS:
         raise ValueError(f"Unsupported file type: {ext}. Allowed: {ALLOWED_EXTENSIONS}")
@@ -81,9 +79,7 @@ async def delete_document(user_id: str, doc_id: str) -> bool:
 
     # Delete associated chunks
     chunks_ref = db.collection("users").document(user_id).collection("chunks")
-    chunk_docs = chunks_ref.where(
-        filter=FieldFilter("document_id", "==", doc_id)
-    ).stream()
+    chunk_docs = chunks_ref.where(filter=FieldFilter("document_id", "==", doc_id)).stream()
     for chunk_doc in chunk_docs:
         chunk_doc.reference.delete()
 

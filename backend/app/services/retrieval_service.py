@@ -45,13 +45,15 @@ async def retrieve_relevant_chunks(
         if document_ids and chunk_data["document_id"] not in document_ids:
             continue
 
-        results.append({
-            "chunk_id": doc.id,
-            "document_id": chunk_data["document_id"],
-            "document_name": chunk_data.get("document_name", "Unknown"),
-            "content": chunk_data["content"],
-            "chunk_index": chunk_data.get("chunk_index", 0),
-        })
+        results.append(
+            {
+                "chunk_id": doc.id,
+                "document_id": chunk_data["document_id"],
+                "document_name": chunk_data.get("document_name", "Unknown"),
+                "content": chunk_data["content"],
+                "chunk_index": chunk_data.get("chunk_index", 0),
+            }
+        )
 
     return results
 
@@ -59,7 +61,5 @@ async def retrieve_relevant_chunks(
 def build_context(chunks: list[dict]) -> str:
     context_parts = []
     for i, chunk in enumerate(chunks, 1):
-        context_parts.append(
-            f"[Source {i} - {chunk['document_name']}]\n{chunk['content']}"
-        )
+        context_parts.append(f"[Source {i} - {chunk['document_name']}]\n{chunk['content']}")
     return "\n\n".join(context_parts)

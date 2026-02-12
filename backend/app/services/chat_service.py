@@ -13,11 +13,13 @@ async def create_chat_session(user_id: str, title: str) -> str:
     chat_id = str(uuid.uuid4())
     chats_ref = _get_chats_ref(user_id)
     now = datetime.now(timezone.utc)
-    chats_ref.document(chat_id).set({
-        "title": title,
-        "created_at": now,
-        "updated_at": now,
-    })
+    chats_ref.document(chat_id).set(
+        {
+            "title": title,
+            "created_at": now,
+            "updated_at": now,
+        }
+    )
     return chat_id
 
 

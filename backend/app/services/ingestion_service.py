@@ -23,9 +23,7 @@ def _batch_embed(texts: list[str]) -> list[list[float]]:
 
     for i in range(0, len(texts), EMBEDDING_BATCH_SIZE):
         batch = texts[i : i + EMBEDDING_BATCH_SIZE]
-        inputs = [
-            TextEmbeddingInput(text=text, task_type="RETRIEVAL_DOCUMENT") for text in batch
-        ]
+        inputs = [TextEmbeddingInput(text=text, task_type="RETRIEVAL_DOCUMENT") for text in batch]
         embeddings = model.get_embeddings(inputs)
         all_embeddings.extend([e.values for e in embeddings])
 
@@ -35,9 +33,7 @@ def _batch_embed(texts: list[str]) -> list[list[float]]:
 async def ingest_document(user_id: str, doc_id: str) -> None:
     try:
         db = get_firestore_client()
-        doc_ref = (
-            db.collection("users").document(user_id).collection("documents").document(doc_id)
-        )
+        doc_ref = db.collection("users").document(user_id).collection("documents").document(doc_id)
         doc_snapshot = doc_ref.get()
 
         if not doc_snapshot.exists:
@@ -77,14 +73,17 @@ async def ingest_document(user_id: str, doc_id: str) -> None:
         for idx, (chunk_text_content, embedding) in enumerate(zip(chunks, embeddings)):
             chunk_id = str(uuid.uuid4())
             chunk_ref = chunks_ref.document(chunk_id)
-            batch.set(chunk_ref, {
-                "document_id": doc_id,
-                "document_name": doc_data["filename"],
-                "content": chunk_text_content,
-                "embedding": Vector(embedding),
-                "chunk_index": idx,
-                "created_at": datetime.now(timezone.utc),
-            })
+            batch.set(
+                chunk_ref,
+                {
+                    "document_id": doc_id,
+                    "document_name": doc_data["filename"],
+                    "content": chunk_text_content,
+                    "embedding": Vector(embedding),
+                    "chunk_index": idx,
+                    "created_at": datetime.now(timezone.utc),
+                },
+            )
 
             # Firestore batch limit is 500 writes
             if (idx + 1) % 499 == 0:

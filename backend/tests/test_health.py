@@ -14,9 +14,7 @@ def mock_firebase():
 async def test_health_check(mock_firebase):
     from app.main import app
 
-    async with AsyncClient(
-        transport=ASGITransport(app=app), base_url="http://test"
-    ) as client:
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
         response = await client.get("/api/health")
     assert response.status_code == 200
     assert response.json() == {"status": "healthy"}
