@@ -1,4 +1,4 @@
-from google.cloud import firestore
+from google.cloud import firestore  # type: ignore[attr-defined]
 
 from app.config import settings
 

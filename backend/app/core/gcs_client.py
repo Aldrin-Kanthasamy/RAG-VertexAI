@@ -1,4 +1,4 @@
-from google.cloud import storage
+from google.cloud import storage  # type: ignore[attr-defined]
 
 from app.config import settings
 
