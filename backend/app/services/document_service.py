@@ -6,7 +6,7 @@ from google.cloud.firestore_v1 import FieldFilter
 
 from app.core.firestore_client import get_firestore_client
 from app.core.gcs_client import get_bucket
-from app.utils.document_parsers import EXTENSION_TO_CONTENT_TYPE, ALLOWED_EXTENSIONS
+from app.utils.document_parsers import ALLOWED_EXTENSIONS, EXTENSION_TO_CONTENT_TYPE
 
 
 def _get_docs_ref(user_id: str):

@@ -4,7 +4,6 @@ from collections.abc import AsyncGenerator
 from vertexai.generative_models import GenerationConfig
 
 from app.config import settings
-from app.core.vertex_client import get_generation_model
 
 SYSTEM_PROMPT = """You are a helpful assistant that answers questions based on the provided context.
 Use ONLY the information from the context below to answer the question.

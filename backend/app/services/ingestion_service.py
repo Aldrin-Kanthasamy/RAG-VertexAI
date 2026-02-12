@@ -5,7 +5,6 @@ from datetime import datetime, timezone
 from google.cloud.firestore_v1.vector import Vector
 from vertexai.language_models import TextEmbeddingInput
 
-from app.config import settings
 from app.core.firestore_client import get_firestore_client
 from app.core.gcs_client import get_bucket
 from app.core.vertex_client import get_embedding_model

@@ -6,8 +6,8 @@ from fastapi.responses import StreamingResponse
 from app.api.dependencies import get_current_user
 from app.models.schemas import (
     ChatHistoryResponse,
-    ChatMessagesResponse,
     ChatMessageResponse,
+    ChatMessagesResponse,
     ChatRequest,
     ChatSessionResponse,
     SourceChunk,

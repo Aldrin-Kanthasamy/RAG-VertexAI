@@ -73,7 +73,6 @@ async def get_chat_messages(user_id: str, chat_id: str) -> list[dict]:
 
 
 async def delete_chat_session(user_id: str, chat_id: str) -> bool:
-    db = get_firestore_client()
     chats_ref = _get_chats_ref(user_id)
     chat_doc = chats_ref.document(chat_id).get()
 
