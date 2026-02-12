@@ -7,7 +7,7 @@ import {
   Alert,
   Paper,
 } from "@mui/material";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../hooks/useAuth";
 
 interface RegisterFormProps {
   onSwitchToLogin: () => void;
@@ -38,8 +38,8 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
     setLoading(true);
     try {
       await register(email, password);
-    } catch (err: any) {
-      setError(err.message || "Failed to register");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Failed to register");
     } finally {
       setLoading(false);
     }

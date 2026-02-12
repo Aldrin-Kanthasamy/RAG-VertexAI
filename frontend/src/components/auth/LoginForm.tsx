@@ -7,7 +7,7 @@ import {
   Alert,
   Paper,
 } from "@mui/material";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../hooks/useAuth";
 
 interface LoginFormProps {
   onSwitchToRegister: () => void;
@@ -27,8 +27,8 @@ export default function LoginForm({ onSwitchToRegister }: LoginFormProps) {
 
     try {
       await login(email, password);
-    } catch (err: any) {
-      setError(err.message || "Failed to sign in");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Failed to sign in");
     } finally {
       setLoading(false);
     }

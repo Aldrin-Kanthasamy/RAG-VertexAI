@@ -6,7 +6,7 @@ import {
   Button,
   Divider,
 } from "@mui/material";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../hooks/useAuth";
 
 export default function SettingsPage() {
   const { user, logout } = useAuth();

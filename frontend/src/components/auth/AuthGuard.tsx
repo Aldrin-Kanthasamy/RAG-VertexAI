@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { CircularProgress, Box } from "@mui/material";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../hooks/useAuth";
 import type { ReactNode } from "react";
 
 export default function AuthGuard({ children }: { children: ReactNode }) {

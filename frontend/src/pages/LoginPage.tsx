@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import { Box } from "@mui/material";
 import LoginForm from "../components/auth/LoginForm";
 import RegisterForm from "../components/auth/RegisterForm";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../hooks/useAuth";
 
 export default function LoginPage() {
   const { user, loading } = useAuth();

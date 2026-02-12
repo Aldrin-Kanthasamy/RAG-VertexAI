@@ -39,9 +39,10 @@ export default function DocumentUploader({
           await uploadDocument(file);
           setUploadProgress(100);
           onUploadComplete();
-        } catch (err: any) {
+        } catch (err: unknown) {
+          const message = (err as { response?: { data?: { detail?: string } } })?.response?.data?.detail;
           setError(
-            err.response?.data?.detail || `Failed to upload "${file.name}"`
+            message || `Failed to upload "${file.name}"`
           );
         } finally {
           setUploading(false);

@@ -30,10 +30,6 @@ export default function ChatHistory({
 }: ChatHistoryProps) {
   const [sessions, setSessions] = useState<ChatSession[]>([]);
 
-  useEffect(() => {
-    loadSessions();
-  }, [refreshTrigger]);
-
   const loadSessions = async () => {
     try {
       const data = await getChatHistory();
@@ -42,6 +38,10 @@ export default function ChatHistory({
       // Silently fail - user may not have any chats yet
     }
   };
+
+  useEffect(() => {
+    loadSessions();
+  }, [refreshTrigger]);
 
   const handleDelete = async (e: React.MouseEvent, chatId: string) => {
     e.stopPropagation();
