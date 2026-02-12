@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   List,
   ListItemButton,
@@ -30,18 +30,18 @@ export default function ChatHistory({
 }: ChatHistoryProps) {
   const [sessions, setSessions] = useState<ChatSession[]>([]);
 
-  const loadSessions = async () => {
+  const loadSessions = useCallback(async () => {
     try {
       const data = await getChatHistory();
       setSessions(data);
     } catch {
       // Silently fail - user may not have any chats yet
     }
-  };
+  }, []);
 
   useEffect(() => {
-    loadSessions();
-  }, [refreshTrigger]);
+    void loadSessions();
+  }, [loadSessions, refreshTrigger]);
 
   const handleDelete = async (e: React.MouseEvent, chatId: string) => {
     e.stopPropagation();
