@@ -1,14 +1,29 @@
 import io
+import logging
 
 import docx
 import fitz
+import pytesseract
+from PIL import Image
+
+logger = logging.getLogger(__name__)
 
 
 def parse_pdf(file_bytes: bytes) -> str:
     text_parts = []
     with fitz.open(stream=file_bytes, filetype="pdf") as doc:
         for page in doc:
-            text_parts.append(page.get_text())
+            text = page.get_text()
+            if text.strip():
+                text_parts.append(text)
+            else:
+                # OCR fallback for scanned/image-based pages
+                pix = page.get_pixmap(dpi=300)
+                img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+                ocr_text = pytesseract.image_to_string(img)
+                if ocr_text.strip():
+                    text_parts.append(ocr_text)
+                    logger.info(f"OCR extracted text from page {page.number + 1}")
     return "\n".join(text_parts)
 
 
