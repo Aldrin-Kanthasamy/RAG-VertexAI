@@ -2,9 +2,9 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    GCP_PROJECT_ID: str
+    GCP_PROJECT_ID: str = ""
     GCP_REGION: str = "us-central1"
-    GCS_BUCKET_NAME: str
+    GCS_BUCKET_NAME: str = ""
     FIREBASE_CREDENTIALS_PATH: str = ""
     FIRESTORE_DATABASE: str = "rag-chatbot-prod"
     ENVIRONMENT: str = "development"
