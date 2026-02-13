@@ -14,7 +14,7 @@ from app.utils.text_processing import chunk_text
 
 logger = logging.getLogger(__name__)
 
-EMBEDDING_BATCH_SIZE = 250
+EMBEDDING_BATCH_SIZE = 20
 
 
 def _batch_embed(texts: list[str]) -> list[list[float]]:
