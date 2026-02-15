@@ -26,22 +26,22 @@ const navItems = [
   { text: "Settings", icon: <SettingsIcon />, path: "/settings" },
 ];
 
-export default function Sidebar() {
+interface SidebarProps {
+  mobileOpen: boolean;
+  onMobileClose: () => void;
+}
+
+export default function Sidebar({ mobileOpen, onMobileClose }: SidebarProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  return (
-    <Drawer
-      variant="permanent"
-      sx={{
-        width: DRAWER_WIDTH,
-        flexShrink: 0,
-        "& .MuiDrawer-paper": {
-          width: DRAWER_WIDTH,
-          boxSizing: "border-box",
-        },
-      }}
-    >
+  const handleNavClick = (path: string) => {
+    navigate(path);
+    onMobileClose();
+  };
+
+  const drawerContent = (
+    <>
       <Toolbar>
         <Box display="flex" alignItems="center" gap={1}>
           <Typography variant="h6" noWrap fontWeight="bold">
@@ -55,14 +55,51 @@ export default function Sidebar() {
           <ListItemButton
             key={item.text}
             selected={location.pathname === item.path}
-            onClick={() => navigate(item.path)}
+            onClick={() => handleNavClick(item.path)}
           >
             <ListItemIcon>{item.icon}</ListItemIcon>
             <ListItemText primary={item.text} />
           </ListItemButton>
         ))}
       </List>
-    </Drawer>
+    </>
+  );
+
+  return (
+    <>
+      {/* Mobile drawer */}
+      <Drawer
+        variant="temporary"
+        open={mobileOpen}
+        onClose={onMobileClose}
+        ModalProps={{ keepMounted: true }}
+        sx={{
+          display: { xs: "block", md: "none" },
+          "& .MuiDrawer-paper": {
+            width: DRAWER_WIDTH,
+            boxSizing: "border-box",
+          },
+        }}
+      >
+        {drawerContent}
+      </Drawer>
+
+      {/* Desktop drawer */}
+      <Drawer
+        variant="permanent"
+        sx={{
+          display: { xs: "none", md: "block" },
+          width: DRAWER_WIDTH,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: DRAWER_WIDTH,
+            boxSizing: "border-box",
+          },
+        }}
+      >
+        {drawerContent}
+      </Drawer>
+    </>
   );
 }
 

@@ -60,11 +60,11 @@ export default function DocumentList({
         <TableHead>
           <TableRow>
             <TableCell>Filename</TableCell>
-            <TableCell>Type</TableCell>
+            <TableCell sx={{ display: { xs: "none", sm: "table-cell" } }}>Type</TableCell>
             <TableCell>Size</TableCell>
             <TableCell>Status</TableCell>
-            <TableCell>Chunks</TableCell>
-            <TableCell>Uploaded</TableCell>
+            <TableCell sx={{ display: { xs: "none", md: "table-cell" } }}>Chunks</TableCell>
+            <TableCell sx={{ display: { xs: "none", md: "table-cell" } }}>Uploaded</TableCell>
             <TableCell align="right">Actions</TableCell>
           </TableRow>
         </TableHead>
@@ -76,7 +76,7 @@ export default function DocumentList({
                   {doc.filename}
                 </Typography>
               </TableCell>
-              <TableCell>{doc.file_type}</TableCell>
+              <TableCell sx={{ display: { xs: "none", sm: "table-cell" } }}>{doc.file_type}</TableCell>
               <TableCell>{formatFileSize(doc.file_size)}</TableCell>
               <TableCell>
                 <Chip
@@ -85,8 +85,8 @@ export default function DocumentList({
                   size="small"
                 />
               </TableCell>
-              <TableCell>{doc.chunk_count}</TableCell>
-              <TableCell>
+              <TableCell sx={{ display: { xs: "none", md: "table-cell" } }}>{doc.chunk_count}</TableCell>
+              <TableCell sx={{ display: { xs: "none", md: "table-cell" } }}>
                 {new Date(doc.created_at).toLocaleDateString()}
               </TableCell>
               <TableCell align="right">

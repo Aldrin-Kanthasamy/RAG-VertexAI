@@ -39,7 +39,7 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
         {isUser ? <PersonIcon fontSize="small" /> : <BotIcon fontSize="small" />}
       </Box>
 
-      <Box sx={{ maxWidth: "75%" }}>
+      <Box sx={{ maxWidth: { xs: "90%", md: "75%" } }}>
         <Paper
           elevation={1}
           sx={{

@@ -108,12 +108,12 @@ export default function ChatInterface({
   return (
     <Paper
       sx={{
-        height: "calc(100vh - 140px)",
+        height: { xs: "calc(100dvh - 160px)", md: "calc(100vh - 140px)" },
         display: "flex",
         flexDirection: "column",
       }}
     >
-      <Box sx={{ flexGrow: 1, overflow: "auto", p: 2 }}>
+      <Box sx={{ flexGrow: 1, overflow: "auto", p: { xs: 1, sm: 2 } }}>
         {loading ? (
           <Box display="flex" justifyContent="center" py={4}>
             <CircularProgress />
